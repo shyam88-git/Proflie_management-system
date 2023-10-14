@@ -8,7 +8,7 @@ let authenticate=(request,response,next)=>{
 
         return response.status(401).json({msg:'No Token, authentication denied'});
     }
-    //verify the token
+    //decode the  the token
 
     try{
 

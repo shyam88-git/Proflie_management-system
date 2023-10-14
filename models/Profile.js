@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 const ProfileSchema= new mongoose.Schema({
 
 
-        User : {
+        user : {
 
 
 
@@ -79,11 +79,11 @@ const ProfileSchema= new mongoose.Schema({
         social : {
 
 
-            youtube : { type : string , require: true },
-            twitter: { type : string , require : true},
-            facebook : { type : string ,require: true},
-            linkedin : { type : string,require: true },
-            instagram : { type : string ,require: true},
+            youtube : { type : String , require: true },
+            twitter: { type : String , require : true},
+            facebook : { type : String ,require: true},
+            linkedin : { type : String,require: true },
+            instagram : { type : String ,require: true},
         }
 
 
