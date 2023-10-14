@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
+const authenticate = require("../middleware/authenticate");
 
 /*@usage :Register a User
   @url: api/users/register
@@ -120,7 +121,6 @@ router.post(
         user: {
           id: user.id,
           name: user.name,
-          
         },
       };
 
@@ -134,5 +134,34 @@ router.post(
     }
   }
 );
+
+/**
+ * @usage:Get User Info
+ * @URL:/api/users/
+ * @fields:no-fields
+ * @method:get
+ * @access:private
+ */
+
+
+router.get('/me',authenticate,async(request,response)=>{
+
+
+    
+        try{
+
+            let user=await User.findById(request.user.id);
+            response.status(200).json({user:user});
+
+
+        }
+        catch(error){
+
+            console.error(error);
+            return response.status(401).json({errors:[{msg:error.message}]});
+
+
+        }
+})
 
 module.exports = router;
