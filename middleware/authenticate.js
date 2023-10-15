@@ -1,26 +1,35 @@
+//import the required library
+
 const jwt=require('jsonwebtoken');
+
+//define the middle ware function
+
 let authenticate=(request,response,next)=>{
 
-    //get token from header
+    //get the jwt token
 
-    const token=request.header('x-auth-token');
+    let token=request.header('x-auth-token');
+
+    //check if the token exist or not
+
     if(!token){
 
-        return response.status(401).json({msg:'No Token, authentication denied'});
+        return response.status(401).json({msg:'No Token , Authentication Denied'});
     }
-    //decode the  the token
 
     try{
+        //decode the toekn
 
-        let decoded=jwt.verify(token,process.env.JWT_SECRET_KEY);
-        request.user=decoded.user;
-
+        let decode=jwt.verify(token,process.env.JWT_SECRET_KEY);
+        request.user=decode.user;
         next();
+
+
     }
     catch(error){
 
         response.status(401).json({msg:'Token is not valid'});
     }
-};
+}
 
 module.exports=authenticate;
